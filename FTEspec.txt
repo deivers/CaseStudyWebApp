@@ -2,7 +2,7 @@ Background:
 	This is a simple web app for a professor at NCSU for the purpose of presenting case studies to students who have to "solve" the case (which will later be graded).  The actual content will be created by professors in the form of html pages.  I need to provide the framework that tracks the "path" the student takes (saving in a database).  Also needs to "unlock" later sections when the student answers "challenge" questions correctly.
 	A Case Study is:
 		A clear problem statement
-		Pertinent data (initially hidden) in the form of web pages containing images, video, and comprehension questions
+		Pertinent data (initially hidden) in the form of web pages containing images, video, and challenge questions
 		A home table on which the student can choose to see the above
 		A specific subset of the available data that is required to solve the case
 		Student response - an essay and optionally other answers
@@ -10,69 +10,77 @@ Background:
 		
 	UI (student perspective):
 		View introductory information
-		Choose first step  (not the answer but the appropriate next step
+		Choose a course of action  (load a child page, which preferrably slides in from the right)
 		View the results of the choice (e.g., lab test results)
-		Answer gate questions to confirm basic understanding of the data
-		Proceed to next stage
+		Answer challenge questions to confirm basic understanding of the data
+		Return to table, if challenge questions correct, the checkmark turns green
+		On next table row, student choose next course of action
 		...etc...
 		Submit an essay to be graded later (Moodle?  File with student ID?)
-			Session persistence preferred
+			Session persistence preferred (in case student leaves the web page before finishing)
 			Confirmation of successful submit
-		Student can abort and re-start the case study but cannot back up to previous stage
+		Student can abort and re-start the case study but cannot back up to a previous stage
 			If student aborts, it is noted in student's submission
+			Re-starting the case study creates a new row in the database table
 		Cannot see answers or solution by "view source"
-		Can go back to square 1 (save on server)
 		
-	UI (authoring tool for instructors):
-		Able to create a multi-step case study and it's solution
-		Able to set up auto-graded questions that gate the next stage
-		Able to incorporate pages, photos, movies, links to external sites, etc.
-		Ease of use
+	Authoring tool enables instructors to:
+		Create a multi-step case study and it's solution  (encode in an xml file)
+		Create simple html "child" pages, which may incorporate pages, photos, movies, links to external sites, etc
+		Set up auto-graded questions that gate the next stage
+		Ease of use preferred, but can be a later phase of the project
 		
 	Web dev perspective:
 		Google doc style ajax page
-		session persistence
-		author-editable content, including an overall configuration file (xml?)
-		checkmarks based on correct answers
-		popup menu items disabled based on history
-		submit button enabled only when requirements are met
+		persistence (student can return to where they left off)
+		author-editable content, including an overall configuration file (xml)
+		checkmarks colored based on correct answers
+		popup menu items on the last row of the table - allows student to choose next course of action
+		submit button enabled only when instructor-dictated requirements are met
 		response saved on server - confirm to student if successful
 		student cannot "view source" to cheat
 		student cannot go back, but can start over (failed attempt still logged)
-
+		The case should be selected simply by the student going to a url with a query string such as:  http://www.ncsu.edu/........./CaseStudyApp.php?ChestPainCase
+			where ChestPainCase is an example case id.  The instructor will provide these urls to students when the time is right during the semester.  On the server we would probably have at the same folder level as CaseStudyApp.php a folder called ChestPainCase_folder with the xml and child pages in there.
 Requirements:
 	HTML5, PHP, Javascript/jQuery, CSS, and some variant of SQL will be employed
 	This is a single page ajax app (see mockups) with 1 ajax div for dynamic content
-	Configurable by a non-programmer author; content is html/css and maybe xml files
+	Configurable by a non-programmer author; content is html/css and an xml configuration file
 		(The author uses their favorite app to create the html pages)
-	Ajax div content initially shows a table which is the top of the content tree (which is only 1 level deep)
+	Ajax content initially shows a table which is the top of the content tree (which is only 1 level deep in terms of branches)
 	Table content is dynamic and depends on student's progress
 	When a tableRow is selected,  the child html page is loaded (slides in from right) and a left arrow button appears to provide a way back
 		This is called the tableRowDetail
-		Page needs to be loaded whether it's a complete html page or just the body
-		The child html page may link to other pages - which also load into the ajax div
+		The child html page may link to other pages - which open in a new window or tab
 	When returning from tableRowDetail, table updates the corresponding row and enables the next row
 		If tableRowDetail requirement satisfied, then turn the corresponding row's checkmark to green
 	The code tracks total cost (each tableRow has a cost) spent by student (see dB section below)
 		The cost may be dollars or schedule time
 	The code detects when student has satisfied the min. overall requirements and enables the submit button
 	Student gets confirmation when submission is successful
-	HTML5 session storage - student can leave the page, return, and still have their data
-		Also allow student to start over from square 1 (results in a new row in DB)
+	Student can leave the page, return, and still have their data
+		Also allow student to start over (results in a new row in DB)
 	Student cannot "peek" at answers or otherwise game the system
 	Copyright and attributions at bottom which cannot be edited by an author
 	Browser compatibility:  latest versions of the following
 		Mac:  Safari, FireFox, Chrome
 		Windows:  FireFox, Chrome, IE
 		Prefer compatibility also with iPad Safari
+	
 What needs to be saved in the DB:
 	unique id is student identifier with attempt# suffix
-	prefer integration with Moodle (currently on v 1.9)
-	each tableRow that was picked (save when picked)
-	whether the tableRowDetail was satisfied (save when satisfied)
-	whether the student aborted
-	total cost (or time) expended in accessing the tableRowDetail
+	case id
+	the child pages that were picked (in the order picked)
+	whether the challenge questions were satisfied
+	whether the student restarted the case study
 	final submission
-		optional multiple choice questions
-		an essay
-ALSO: need a simple way for the professor to look at or extract info from the database for the purpose of grading
+		total cost (or time) expended in accessing the tableRowDetail
+		answers to top level questions (if any)
+		an essay the student wrote
+	ALSO: need a simple way for the professor to look at or extract info from the database for the purpose of grading
+
+Rabia's comments:
+	It seems like the main parts of the app that will benefit from ajax are the addition of new table rows and the submission of answers to gate questions. Having those actions take place on the server will allow two things
+		1. The students will not be able to "view source" to see potential answers
+		2. The path will be saved on the server in real-time, without the student hitting the final submit button
+
