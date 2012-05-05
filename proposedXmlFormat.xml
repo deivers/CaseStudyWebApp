@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<case>
+	<id>case1</id>
+	<title>Case 1</title>
+	<description>This is Case 1.</description>
+	<options>
+		<option>
+			<id>option1</id>
+			<title>Option 1</title>
+			<cost>550.5</cost>
+			<requires></requires>
+			<page>option1.html</page>
+			<answers>
+				<answer>
+					<element>q1physiology</element>
+					<value></value>
+				</answer>
+				<answer>
+					<element>q1morphology</element>
+					<value></value>
+				</answer>
+				<answer>
+					<element>q1genetics</element>
+					<value>checked</value>
+				</answer>
+				<answer>
+					<element>q2select</element>
+					<value>1</value>
+				</answer>
+				<answer>
+					<element>q3radio</element>
+					<value>2</value>
+				</answer>
+			</answers>
+		</option>
+		<option>
+			<id>option2</id>
+			<title>Option 2</title>
+			<cost>550.5</cost>
+			<requires>option1</requires>
+			<page>option2.html</page>
+			<answers>
+				<answer>
+					<element>q1physiology</element>
+					<value></value>
+				</answer>
+				<answer>
+					<element>q1morphology</element>
+					<value></value>
+				</answer>
+				<answer>
+					<element>q1genetics</element>
+					<value>checked</value>
+				</answer>
+				<answer>
+					<element>q2select</element>
+					<value>1</value>
+				</answer>
+				<answer>
+					<element>q3radio</element>
+					<value>2</value>
+				</answer>
+			</answers>
+		</option>
+	</options>
+</case>

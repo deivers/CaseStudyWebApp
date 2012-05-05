@@ -2,7 +2,7 @@ Background:
 	This is a simple web app for a professor at NCSU for the purpose of presenting case studies to students who have to "solve" the case (which will later be graded).  The actual content will be created by professors in the form of html pages.  I need to provide the framework that tracks the "path" the student takes (saving in a database).  Also needs to "unlock" later sections when the student answers "challenge" questions correctly.
 	A Case Study is:
 		A clear problem statement
-		Pertinent data (initially hidden) in the form of web pages containing images, video, and challenge questions
+		Pertinent data (initially hidden) in the form of web pages containing images, video, and challenge questions (optional)
 		A home table on which the student can choose to see the above
 		A specific subset of the available data that is required to solve the case
 		Student response - an essay and optionally other answers
@@ -23,13 +23,13 @@ Background:
 			If student aborts, it is noted in student's submission
 			Re-starting the case study creates a new row in the database table
 		Cannot see answers or solution by "view source"
-		
+
 	Authoring tool enables instructors to:
 		Create a multi-step case study and it's solution  (encode in an xml file)
 		Create simple html "child" pages, which may incorporate pages, photos, movies, links to external sites, etc
 		Set up auto-graded questions that gate the next stage
 		Ease of use preferred, but can be a later phase of the project
-		
+
 	Web dev perspective:
 		Google doc style ajax page
 		persistence (student can return to where they left off)
@@ -66,7 +66,7 @@ Requirements:
 		Mac:  Safari, FireFox, Chrome
 		Windows:  FireFox, Chrome, IE
 		Prefer compatibility also with iPad Safari
-	
+
 What needs to be saved in the DB:
 	unique id is student identifier with attempt# suffix
 	case id
@@ -83,4 +83,3 @@ Rabia's comments:
 	It seems like the main parts of the app that will benefit from ajax are the addition of new table rows and the submission of answers to gate questions. Having those actions take place on the server will allow two things
 		1. The students will not be able to "view source" to see potential answers
 		2. The path will be saved on the server in real-time, without the student hitting the final submit button
-
