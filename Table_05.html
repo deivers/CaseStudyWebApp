@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#1').hide();
+			$('#2').hide();
+			$('#0-1').hide();
+			$('#1-2').hide();
+			$("input[type=submit]").click(function(){
+			alert("Submit function not programmed yet.");
+		  });
+//		  $('#detail_mri').click(function() {
+//		  	slideInContent();
+//		  });
+	  });
+	  function enableSubmit() {
+		  $("input[type=submit]").removeAttr("disabled");
+	  };
+	  function slideInContent(whichId) {
+		//$("#ajax_pane").load("MRI.html");
+		if (whichId == '#1') {
+			$('#0').hide("slide", { direction: "left" }, 1000);		// needs jQ effects lib
+			$('#0-1').show("slide", { direction: "right" }, 1000);
+			$('#1').show("slide", { direction: "right" }, 1000);
+		} else if (whichId == '#2') {
+			$('#0').hide("slide", { direction: "left" }, 1000);		// needs jQ effects lib
+			$('#1-2').show("slide", { direction: "right" }, 1000);
+			$('#2').show("slide", { direction: "right" }, 1000);
+	  	}
+	  };
+	  function backToTable(whichId) {
+		if (whichId == '#1') {
+			$('#1').hide("slide", { direction: "right" }, 1000);		// needs jQ effects lib
+			$('#0-1').hide("slide", { direction: "right" }, 1000);		// needs jQ effects lib
+			$('#0').show("slide", { direction: "left" }, 1000);
+		} else if (whichId == '#2') {
+			$('#2').hide("slide", { direction: "right" }, 1000);		// needs jQ effects lib
+			$('#1-2').hide("slide", { direction: "right" }, 1000);		// needs jQ effects lib
+			$('#0').show("slide", { direction: "left" }, 1000);
+		}
+	  };
+	</script>
+	<style>
+		body {
+			background-color: #DDD;
+			margin-left: 100px;
+		}
+		.col1 {
+			text-align: center;
+		}
+		.table_caption {
+			font-size: 26px;
+			font-family: sans-serif;
+		}
+		#ajax_pane {
+			width: 750px;
+			height: 475px;
+			background-color: #FFF;
+			overflow: scroll;
+		}
+		#sections {
+			vertical-align: top;
+		}
+		table {
+			padding: 25px;
+		}
+		#total_line, #bottom_line {
+			border: 1px solid #333;
+			font-weight: bold;
+		}
+		#student_response {
+		}
+		textarea {
+			width: 520px;
+			height: 200px;
+			margin-left: 0px;
+		}
+		.rightAlign {
+			text-align: right;
+		}
+	</style>
+</head>
+<body>
+	<div id='ajax_pane'>
+	<table><tr id='sections'>
+		<td id='0'>
+		<table>
+			<caption class="table_caption"><pre> S U M M A R Y </pre></caption>
+			<thead>
+				<tr>
+					<th scope="col">Reviewed</th>
+					<th scope="col">Name of lab test</th>
+					<th scope="col"></th>
+					<th scope="col">Cost</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="col1"><img src="checked.png" /></td>
+					<td>MRI, cardiac</td>
+					<td></td>
+					<td>$555.50</td>
+					<td><div onclick="slideInContent('#1')"><img id="detail_mri" src="disclose01.png" /></div></td>
+				</tr>
+				<tr>
+					<td class="col1"><img src="unchecked.png" /></td>
+					<td>Ultrasound, cardiac</td>
+					<td></td>
+					<td>$333.50</td>
+					<td><div onclick="slideInContent('#2')"><img src="disclose01.png" /></a></td>
+				</tr>
+				<tr>
+					<td class="col1"></td>
+					<td><img src="plus.png" alt="" />
+						<select>
+							<option value="0">- select -</option>
+							<option value="1" disabled>MRI, cardiac  -  $555.50</option>
+							<option value="2" disabled>Ultrasound, cardiac  -  $333.50</option>
+							<option value="3">Bloodwork for diabetes  -  $288.00</option>
+						</select>
+					</td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td class="col1"></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td class="col1"></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td class="col1"></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr id="total_line">
+					<td class="col1"></td>
+					<td class="rightAlign">TOTAL</td>
+					<td></td>
+					<td>$889.00</td>
+					<td></td>
+				</tr>
+				<tr id="bottom_line">
+					<td class="col1"></td>
+					<td class="rightAlign">Remaining in budget</td>
+					<td></td>
+					<td>$111.00</td>
+					<td></td>
+				</tr>
+			</tfoot>
+		</table>
+		</td><td id='0-1'>
+			<div onclick="backToTable('#1')"><img src="disclose02.png" />
+			</div>
+		</td><td id='1'>
+			<header>
+				<h1>MRI Test Results</h1>
+			</header>
+			<section>
+				<h2>Patient name: </h2>
+				<article>
+					<h3>Ventral-dorsal image</h3>
+					<p><img src="mri.png" /></p>
+				</article>
+				<article>
+					<h3>Cephalic-caudal image</h3>
+					<p>...</p>
+				</article>
+			</section>
+			<dialog>
+				<h4>Technician comments</h4>
+				<dl>
+					<dt id="comment-01">Comment...</dt>
+					<dd>***</dd>
+					<dt id="comment-02">Comment...</dt>
+					<dd>**</dd>
+					<dt id="comment-03">Comment...</dt>
+					<dd>*</dd>
+				</dl>
+			</dialog>
+			<aside>
+				<h5>Links</h5>
+				<ul>
+					<li><a href="">Types of MRI</a></li>
+					<li><a href="">Limitations of MRI</a></li>
+					<li><a href="">Research papers</a></li>
+				</ul>
+			</aside>
+		</td><td id='1-2'>
+			<div onclick="backToTable('#2')"><img src="disclose02.png" />
+			</div>
+		</td><td id='2'>
+			<header>
+				<h1>Cardiac Ultrasound Results</h1>
+			</header>
+			<section>
+				<h2>Patient name: </h2>
+				<article>
+					<h3>Ventral-dorsal image</h3>
+					<p><img src="ultrasound.png" /></p>
+				</article>
+				<article>
+					<h3>Cephalic-caudal image</h3>
+					<p>...</p>
+				</article>
+			</section>
+			<dialog>
+				<h4>Technician comments</h4>
+				<dl>
+					<dt id="comment-01">Comment...</dt>
+					<dd>***</dd>
+					<dt id="comment-02">Comment...</dt>
+					<dd>**</dd>
+					<dt id="comment-03">Comment...</dt>
+					<dd>*</dd>
+				</dl>
+			</dialog>
+			<aside>
+				<h5>Links</h5>
+				<ul>
+					<li><a href="">Types of Ultrasound</a></li>
+					<li><a href="">Limitations of Ultrasound</a></li>
+					<li><a href="">Research papers</a></li>
+				</ul>
+			</aside>
+		</td>
+	</tr></table>
+	</div>
+	<form id="student_response">
+		<p>Your diagnosis: </p>
+			<select>
+				<option value="0">- select -</option>
+				<option value="1">Stroke risk</option>
+				<option value="2">Heart attack risk</option>
+				<option value="3">Diabetes</option>
+			</select>
+		<p>Your report:</p>
+		<textarea></textarea>
+			<!-- HTML5 session store here? -->
+		<br />
+		<input type="submit" value="Submit" disabled />
+	</form>
+	<footer>
+		<h6>@NCSU CALS 2012</h6>
+	</footer>
+</body>
+</html>
